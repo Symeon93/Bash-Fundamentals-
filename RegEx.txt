@@ -1,0 +1,85 @@
+
+							                 Regular expresssions 
+
+
+
+
+
+
+
+   Anchors (search for patterns in the begining or end of the line)
+	Here we use a starting anchor denoted as '^'
+	and an end anchor denoted as '$'
+	e.g. 
+	"^A" will search for lines that start with "A"
+	"A$" will search for lines that end with "A"
+	(these conventions are also used in the vi editor to move 
+	 the cursor between the start and the end of the line)
+	
+	An interesting application is when you search in your inbox 
+	to search all of your incoming messages, a way to output the 
+	result is the following
+	e.g.
+	grep "^From: " /usr/spool/mail/$USER(this searches for every line 	
+				      	     that starts with "From: "  
+   Metacharacters 
+	The character "." matches any character, except the end of
+	the line character. 
+   
+   Specifying a range of characters
+	e.g. 
+	^[0-9]$ (this will find lines tha contain exactly one number)
+	"^S[a-z][aueio] " (this will search for a three char word that 			   start with S have a second char a lowercase 
+			   and as a third char a vowel)
+	
+  Exceptions in a character set 
+	e.g. 
+	[^0-9]  (any char except 0-9)
+	[^-0-9] (any char except '-' and 0-9)
+	[[0-9]  (any char 0-9 and char '[')
+	[0-9-z] (any char between 0-9 and between 9-z)
+  
+  Matching a specific number of sets 
+	e.g.
+	^[a-z]\{4,8\} (match any line that start with any lowercase 
+		       of lenght 4,5,6,7 or 8 chars)
+	
+  Matching words with \< and \> 
+	Trying to search for a "the" at the begining or the end of the line
+	is not that much trivial (punction marks after the "e")
+	e.g.
+	"\<[tT]he\>" (char before t must be either a new line char or any-
+	thing else except a letter, number or underscore; same for the 
+	char after the letter 'e'.
+ 
+  Backreferences 
+  	e.g. 
+	"\([a-z]\)\1" (searches for two identical letters in a line)
+	"\([0-2]\)\([0-1]\)\2\1" (searches for sequences that are adjoining
+				  in this case numbers like 0110, 2002, 2112
+				  1111, 1001 etc)
+		
+  Extended expressions 
+  	To enable extended expressions we use egrep instead of grep
+	Here patterns like \{ , \} or \< \> or \( \) are no longer
+	usable. 
+
+  	However, we have the usage of:
+
+	"? " (finding 0 or 1 instances of the pattern set before)
+	"+" (finding one or more instances of the pattern set before)
+
+	Alternating matching
+	e.g. 
+	egrep "^(From|Subject): " (This searches the occurence of both 				        	   "From: " or "Subject: " in the begining 					   of a line)
+	
+ 
+  
+  	
+	
+	
+	
+
+	
+	
+    

@@ -1,0 +1,163 @@
+ -Moving around the directory 
+ 	cd 'absolute path '
+ 	cd 'relative path'
+	cd ~ (home directory)
+	cd - (previous directory)
+	cd .. (parent directory)
+
+ ** Some useful shorcuts
+	ctrl + a move to the begining of the line
+	ctrl + e move to the end of the line 
+	 alt + f move forward by one word
+	 alt + b move backward by one word   	
+	 alt + d deletes all the line after the cursor 
+	ctrl + k cut the line after the cursor
+	ctrl + u cut the line before the cursor
+	ctrl + y paste the part the you last cut
+	 
+	
+
+ -Copying files
+	cp first_file second_file (copy the first file in the second file, if there 			                   is already content in the second file, this will be
+				   overwritten)
+	cp fist_file second_file directory (copies both file in the directory
+
+ -Moving files
+	mv filepath1 filepath2 
+	mv filename1 filename2 (rename the file from filename1 to filename2)
+	mv filepath1 filepath2 directory (move file1 and file2 into directory)
+
+ -Removing files
+	rm filename1 filename2 
+	rmdir (for an empty directory)
+	rm -r (delete the directory with all its contents, use it wisely)
+ ** Here we should notice that it is a best practive to first change to the 
+    directory and then delete its files leaving it empty, then we can perform  
+    an rmdir on the now empty directory
+
+ -View files 
+	cat (read the content of the file, this come from 'concatenate')
+	less filename (view the content on a pager, move with space, q to quit 		       viewing)
+	less filename1 filename2 (view the content of multiple files as pager, 
+				  :n to move the next file, :p to move to the 
+				  previous file, :q to quit from the pager)
+ -Exploring a file
+	head filename (print the first 10 rows of the file)
+	head -n 4 filename (print the first 4 rows of the file)
+	head -n +4 filename (print the content starting from the fourth 
+			     row and going up)
+	**-n here stands for 'number of lines' 
+	tail -n 4 filename (prints the last 4 rows)
+	tail -n +4 filename (prints all the content from the fourth and so on row)
+
+ -Check everything below a directory
+	ls -R (outputing all the directories and its subdirectories, R stands 
+	       for 'recursive')
+	ls -F (outputs all the contents of the directory, specifying 
+	       directories with/ from executables with *)
+
+ -Check the manual of a command
+	man command_name
+	** this will open a pager, where navigation is the same as in less
+
+ -Printing columns of a file (especially usefull in a csv file)
+	cut -f 2-4, 5 -d , filename(prints the columns 2-4 and 5 of the file 
+				    with a delimeter ',')
+
+ -Finding patterns in files
+	grep word filepath (this prints the lines of filepath that contain the 
+		            pattern word)
+          -n (print the number lines as well)
+	  -c (count the number of lines that match the pattern)
+	  -i (ignore case in the matching)
+	  -l (print the names of files that contains the match, not the 
+	           match itself)
+	  -v (print the lines that do not contain the pattern word)
+	  -h (not printing the names of the files when searching in multiple
+             files)
+
+			
+ **Sometimes we may want to use two commands one after another on the same 
+   argument. In Bash we can do this by piping each command to the next 
+   one with the operator | 
+   	e.g. 
+	head -n5  filepath | tail -n2 (this outputs the first 5 lines 	
+				       from filepath and then takes last two)   
+ -Count the content in a file
+	wc filepath 
+	  -c (count the number of characters)
+	  -w (count the numbers of words)
+	  -l (count the number of lines)
+
+
+ **wildcards
+	We sometimes would like to check all files of a certain type in a 
+	directory. An easy way to do this is using a wildcard, i.e. 
+	let's say we would like to check all the files in the home directory 
+	we can do this by executing the command
+	  ls *.csv
+
+	Other wildcards we can use are:
+	  - ? Matches single characters
+              e.g. 201?.txt can match files like 2017.txt or 2018.txt, but 
+	            not 2017-07.txt
+	  - [] Matches any of the characters in the squared brackets 
+	       e.g  201[78].txt will match 2017.txt and 2018.txt, but will
+		    not match 2016.txt
+	 - {} Matches any comma separated patterns
+	      e.g. {*.txt, *.csv} will match any file whose extension ends with
+	           txt or csv 
+
+ -Sort data in a file
+	sort (by default it sorts data alphabetically in descending order)
+	  -r (does the sorting in a reverse order)
+	  -n (does the sorting numerically)
+	  -f (fold case, sort in case insensitive)
+	  -b (neglect any blank in the begining of the line)
+
+ **grep is usually being used as a filter to select the data that we are intere-
+   sted in, sort can then be piped to grep to order the resulting output.
+ 
+ -Get rid of duplicate lines
+	-uniq (checks adjacent duplicated lines and prints the unique value, 
+	       for this reason it is common to pipe it with sort)
+
+ -Variables 
+	**Environment variables, these are uppercase and are always available, 
+ 	  we can access the list of these variables by typing set in the shell.
+
+	**Shell variables, these are like local variables in programming. To 
+	  access a shell variable we use the $ in front the variable's name.
+	  e.g
+	  variable=file1.csv 
+	  head $variable
+
+ -loops
+	for any_variable_name in $variable; do .... ; done 
+	e.g.
+	datasets = seasonal/*.csv
+	for file in $datasets; do echo $file; done 
+
+ **We can store commands in an sh file and tell bash to run them once the 
+   file is being executed. 
+   e.g. 
+   head -n1 seasonal/*.csv > head.sh (append the command in head.sh)
+   bash head.sh  (run the file)
+   **Such an approach can even be more flexible, as we can allow allow the 
+     commands to run on a variable that will be specified upon execution of 
+     the .sh file.
+     e.g. 
+     sort $@ | uniq > unique.sh
+     bash unique.sh seasonal/summer.csv (runs the command on the summer.csv file)
+     bash unique.sh seasonal/summer.csv seasonal/spring.csv (processes two files 
+							     and so on)
+     ** more than one variables can be included with a prioritazion in queue that 
+	will be specified upon execution of the command. 
+	e.g.
+	cut -d, -f $2 $1 
+	bash column.sh seasonal/spring.csv 1 (notice how the order of the parameters 
+					      is being specified:
+					      $1 -> seasonal/spring.csv
+					      $2 -> 1)
+
+	 
