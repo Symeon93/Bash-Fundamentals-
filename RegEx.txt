@@ -3,10 +3,6 @@
 
 
 
-
-
-
-
    Anchors (search for patterns in the begining or end of the line)
 	Here we use a starting anchor denoted as '^'
 	and an end anchor denoted as '$'
@@ -29,7 +25,8 @@
    Specifying a range of characters
 	e.g. 
 	^[0-9]$ (this will find lines tha contain exactly one number)
-	"^S[a-z][aueio] " (this will search for a three char word that 			   start with S have a second char a lowercase 
+	"^S[a-z][aueio] " (this will search for a three char word that 			   
+	                   start with S have a second char a lowercase 
 			   and as a third char a vowel)
 	
   Exceptions in a character set 
@@ -71,7 +68,8 @@
 
 	Alternating matching
 	e.g. 
-	egrep "^(From|Subject): " (This searches the occurence of both 				        	   "From: " or "Subject: " in the begining 					   of a line)
+	egrep "^(From|Subject): " (This searches the occurence of both 				        	  
+	"From: " or "Subject: " in the begining of a line)
 	
  
   
