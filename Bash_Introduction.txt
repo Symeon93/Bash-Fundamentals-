@@ -18,7 +18,8 @@
 	
 
  -Copying files
-	cp first_file second_file (copy the first file in the second file, if there 			                   is already content in the second file, this will be
+	cp first_file second_file (copy the first file in the second file, if there 			            
+	is already content in the second file, this will be
 				   overwritten)
 	cp fist_file second_file directory (copies both file in the directory
 
@@ -37,7 +38,8 @@
 
  -View files 
 	cat (read the content of the file, this come from 'concatenate')
-	less filename (view the content on a pager, move with space, q to quit 		       viewing)
+	less filename (view the content on a pager, move with space, q to quit 		   
+	viewing)
 	less filename1 filename2 (view the content of multiple files as pager, 
 				  :n to move the next file, :p to move to the 
 				  previous file, :q to quit from the pager)
